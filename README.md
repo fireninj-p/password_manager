@@ -10,6 +10,7 @@
 - not all numerical passwords are usable in the form of encryption the program uses, and I'm currently
   working on implementing openssl for encryption, some numerical values make it so the original letters 
   aren't returnable with the decrypt function
+
 -when trying to sign in as a user directly after making your account, the program won't display the 
  decrypted file documents(debugger will tell you that your file exists, but the contents won't be displayed).
  Exting the program and re-initializing it works
