@@ -1,9 +1,13 @@
 #include <iostream>
+#include <filesystem>
 #include <string>
 #include <fstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <cstring>
 #include <list>
+#include "password_man/encryption_files/vigenere.h"
+#include "password_man/encryption_files/Base64.h"
+#include <cstdio>
 #define MAX 1000
 using namespace std; 
 
@@ -14,7 +18,7 @@ void user_welcome()
     cout << endl;
     cout << "____________________________________________________________\n";
     cout << "____Welcome to the Password Manager_________________________\n";
-    cout << "____Created by Angel Barrera________________________________\n";
+    cout << "____Created by Fireninj-p________________________________\n";
     cout << "_Options:___________________________________________________\n";
     cout << "_Press 1: Sign into account_________________________________\n";
     cout << "_Press 2: Create New Account________________________________\n";
@@ -29,7 +33,7 @@ void create_account()
     string newaccountname, name_of_website_to_add, 
     email_used_for_site, password, username_for_site,
     userfile;
-    int encryption_key;
+    string encryption_key;
     cout << "Please Enter the Name of Your New Account\n";
     cout << "Enter here: ";
     cin >> newaccountname;
@@ -84,28 +88,33 @@ void create_account()
         
         /*read temporary_file, transfer all contents from temporary file into 
         a new file encrypted by adding the value of the users key to every character*/
-        int len = 0;
-        string text, user_file, filearray[MAX];
         ifstream fread;
         fread.open("tempfile.txt");
+        ofstream real_file(newaccount_systemname);
+        string line_to_encrypt;
         if(fread.is_open())
         {
-            char c;
-            int i, j;
-            char arr[MAX];
-            while(fread.get(c))
+            while(getline(fread, line_to_encrypt))
             {
-                c = c + encryption_key;
-                arr[i] = c;
-                i++;
+                string msg = line_to_encrypt;
+                string key = encryption_key;
+                string encryptedMsg = encrypt_vigenere(msg, key);
+                string newKey = extend_key(msg,key);
+                real_file << encryptedMsg << endl;
 
             }
-            fread.close();
-            arr[i] = '\0';
-            ofstream real_file(newaccount_systemname);
-            real_file << arr;
-            int result = remove("tempfile.txt");
+            //const int result = remove("tempfile.txt");
+
+        }else
+        {
+            cout << "Your File Could not be Encrypted" << endl;
         }
+        fread.close();
+        const int result = remove("tempfile.txt");
+
+
+
+        
     }
 
 } 
@@ -115,7 +124,8 @@ void create_account()
 void sign_in()
 {
     string username_input, myfile;
-    int sign_in_loop = 1, encryption_key;
+    int sign_in_loop = 1;
+    string encryption_key;
         cout <<"\nWhat is your user username?\n";
         cout <<" Enter Here: ";
         cin >> username_input;
@@ -123,25 +133,22 @@ void sign_in()
         cin >> encryption_key;
         myfile = username_input + ".txt";
     
-        ifstream fread;
+
+        //decrypt file
+        
+        fstream fread;
         fread.open(myfile);
+        string file_content;
         if (fread.is_open())
         {
-            cout << "File exists \n \n";
-            string line;
-
-            char c;
-            int i, j;
-            char arr[MAX];
-            while (fread.get(c))
+            while(getline(fread, file_content))
             {
-                c = c - encryption_key;
-                arr[i] = c;
-                i++;
+                string key = encryption_key;
+                string msg = file_content;
+                string newKey = extend_key(msg, key);
+                string decryptedMsg = decrypt_vigenere(msg, newKey);
+                cout << decryptedMsg << endl;
             }
-            fread.close();
-            arr[i] = '\0';
-            cout << arr << endl;
 
             
             
@@ -157,25 +164,4 @@ void sign_in()
             sign_in_loop = 1;
 
         }
-}
-
-void encrypt (int encryption_key, string userfile)
-{
-    ifstream fread;
-    fread.open(userfile);
-    if (fread.is_open())
-    {
-        char c;
-        int i, j;
-        char arr[MAX];
-        while (fread.get(c))
-        {
-            c = c + encryption_key;
-            arr[i] = c;
-            i++;
-        }
-        fread.close();
-        arr[i] = '\0';
-        cout << arr << endl;
-    }
 }
