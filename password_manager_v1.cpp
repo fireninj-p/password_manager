@@ -1,13 +1,19 @@
-#include "managerfunctions.h"
+#include "manager_functions.h"
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <cstring>
 #include <list>
+#include <filesystem>
+#include <cstdio>
 //#define MAX 1000;
 //header files
+//to do:
+//fix loop error where program doesn't loop back to main menu
+//after signing in and choosing to go back to the menu
 
+//symbols are not recommended in Master Passwords
 using namespace std;
 
 int main()
