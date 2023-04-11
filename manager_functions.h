@@ -38,11 +38,20 @@ void create_account()
     cout << "Enter here: ";
     cin >> newaccountname;
     string newaccount_systemname = newaccountname + ".txt";
-    cout << endl;
-    cout <<"-----------------------------------------------------------\n";
-    cout <<"Next you will choose your new Master Pin for this program\n";
-    cout <<"Enter a pin in numerical form using numbers between 1-10\n";
-    cout << "Enter here: ";
+    cout << endl << endl;
+    cout << "=======================================================================\n";
+    cout << "Come up with a Secure Master Password consisting of letters and numbers\n";
+    cout << "Security Alert: The strength of your password is crucial!\n";
+    cout << "Your Master Password is the key to unlocking all your stored passwords.\n";
+    cout << "For the sake of your privacy, it's essential to choose a strong password.\n";
+    cout << "A strong password should have a combination of letters and numbers.\n";
+    cout << "Make sure your password is at least 8 characters long and difficult to guess.\n";
+    cout << "Remember, a weak password could put all your sensitive information at risk!\n";
+    cout << "Don't use personal information or common words that can be easily guessed.\n";
+    cout << "Protect yourself by creating a unique and complex password.\n";
+    cout << "Take your time and choose wisely, your online security depends on it!\n";
+    cout << "============================================================\n";
+    cout << "Enter your Master Password: ";
     cin >> encryption_key;
     userfile = newaccount_systemname;
 
@@ -150,7 +159,7 @@ void sign_in()
                 cout << decryptedMsg << endl;
             }
 
-            
+            fread.close();
             
         }
         else 
