@@ -14,8 +14,6 @@
    
  
  
- #Big help from https://github.com/philipperemy/easy-encryption 
-  for the encryption library used to finish the project
 
 #How to Run:
 
@@ -29,6 +27,20 @@ For windows:
 	-Main file "password_manager_v1.cpp"
 	
 	-Run the "password_manager_v1.cpp"
+	
+	or
+	
+	enter this in the terminal in the proper file path:
+	
+	-g++ -o main password_manager_v1.cpp
+	
+	-then enter to run:
+	
+	-./main
+	
+
+
+
 
 Output:
 
